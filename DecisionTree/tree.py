@@ -38,7 +38,7 @@ def createDataSet():
     return dataSet,labels
 
 myDat,labels=createDataSet()
-print myDat
+# print myDat
 # print calcShannonEnt(myDat)
 
 ########################################################################################################################
@@ -77,7 +77,7 @@ def chooseBestFeatureToSplit(dataSet):
             bestFeature=i
     return bestFeature
 
-print chooseBestFeatureToSplit(myDat)
+# print chooseBestFeatureToSplit(myDat)
 
 def majorityCnt(classList):
     classCount={}
@@ -106,4 +106,62 @@ def createTree(dataSet,labels):
                                                 (dataSet,bestFeat,value),subLabels)
     return myTree
 
-print createTree(myDat,labels)
+# print createTree(myDat,labels)
+
+def classify(inputTree,featLabels,testVec):
+    firstStr=inputTree.keys()[0]
+    secondDict=inputTree[firstStr]
+    featIndex=featLabels.index(firstStr)
+    for key in secondDict.keys():
+        if testVec[featIndex]==key:
+            if type(secondDict[key]).__name__=='dict':
+                classLabel=classify(secondDict[key],featLabels,testVec)
+            else:
+                classLabel=secondDict[key]
+    return classLabel
+
+
+import treePlotter
+myTree=treePlotter.retriveTree(0)
+# print myTree
+# print classify(myTree,labels,[1,0])
+# print classify(myTree,labels,[1,1])
+
+
+#决策树的保存
+def storeTree(inputTree,filename):
+    import pickle
+    fw=open(filename,'w')
+    pickle.dump(inputTree,fw)
+    fw.close()
+
+#调用保存的树
+def grab(filename):
+    import pickle
+    with open(filename) as fr:
+        return pickle.load(fr)
+
+# storeTree(myTree,'ClassifierStorage.txt')
+myTree2=grab('ClassifierStorage.txt')                            #载入保存在本地的树
+# print myTree2
+# print classify(myTree2,labels,[0,1])                               #利用载入的树对输入向量进行分类
+
+
+########################################################################################################################
+########################################################################################################################
+#####实际应用
+#使用决策树预测隐形眼镜类型示例
+with open("lenses.txt") as fr:
+    lenses=[inst.strip().split('\t') for inst in fr.readlines()]
+    lenseselabels=['age','prescript','astigmatic','tearRate']
+    lensesTree=createTree(lenses,lenseselabels)                       #构建决策树
+    # print lensesTree
+
+import treePlotter
+# treePlotter.createPlot(lensesTree)                                     #绘制决策树
+
+#保存隐形眼镜类型预测数
+storeTree(lensesTree,'lensesTreeStorage.txt')
+#载入
+lensesTree_readin=grab('lensesTreeStorage.txt')
+treePlotter.createPlot(lensesTree_readin)                                 #绘制载入的决策树
