@@ -142,9 +142,9 @@ def grab(filename):
         return pickle.load(fr)
 
 # storeTree(myTree,'ClassifierStorage.txt')
-myTree2=grab('ClassifierStorage.txt')                            #载入保存在本地的树
+myTree2=grab('ClassifierStorage.txt')                                 #载入保存在本地的树
 # print myTree2
-# print classify(myTree2,labels,[0,1])                               #利用载入的树对输入向量进行分类
+# print classify(myTree2,labels,[0,1])                                   #利用载入的树对输入向量进行分类
 
 
 ########################################################################################################################
@@ -154,7 +154,7 @@ myTree2=grab('ClassifierStorage.txt')                            #载入保存�
 with open("lenses.txt") as fr:
     lenses=[inst.strip().split('\t') for inst in fr.readlines()]
     lenseselabels=['age','prescript','astigmatic','tearRate']
-    lensesTree=createTree(lenses,lenseselabels)                       #构建决策树
+    lensesTree=createTree(lenses,lenseselabels)                          #构建决策树
     # print lensesTree
 
 import treePlotter
