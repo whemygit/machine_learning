@@ -127,7 +127,6 @@ def multiTest():
 
 
 
-
 if __name__ == '__main__':
     # dataMat, labelMat=loadDataSet()
     # weights=stocGradAscent1(dataMat, labelMat)
