@@ -98,7 +98,7 @@ def rulesFromConseq(freqSet,H,supportData,br1,minConf=0.7):
 #     print bill.title
 
 if __name__ == '__main__':
-#     data_set=loadDataSet()
+    data_set=loadDataSet()
 #     # print data_set
 #     c1=createC1(data_set)
 #     # print c1
