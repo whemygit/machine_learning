@@ -7,7 +7,7 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 #连接redis
-conn=redis.Redis()   #或者conn=redis.Redis('localhost'),conn=redis.Redis('localhost',6379)效果相同
+conn=redis.Redis('localhost')   #或者conn=redis.Redis('localhost'),conn=redis.Redis('localhost',6379)效果相同
 
 #redis基本操作
 print conn.keys('*')                           #列出所有的键，等同于conn.keys()
@@ -23,7 +23,8 @@ conn.setrange('secret',5,'ICKY')                               #从开始位置�
 print conn.get('secret')
 conn.mset({'pie':'cherry','cordial':'sherry'})               #一次性设置多个键值
 print conn.mget('secret','myKey','pie','cordial')            #一次性获取多个键的值
-
+print conn.keys()
+print conn.exists('cordial')
 
 
 
