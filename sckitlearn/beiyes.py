@@ -21,6 +21,7 @@ def show_digits():
 
 def load_data():
     digits=datasets.load_digits()
+    # print digits
     return train_test_split(digits.data,digits.target,test_size=0.25,random_state=0)
 
 def test_GaussianNB(*data):
@@ -48,7 +49,9 @@ def test_BernoulliNB(*data):
 
 
 if __name__ == '__main__':
+    # load_data()
     x_train, x_test, y_train, y_test=load_data()
+    print type(x_train)
     # test_GaussianNB(x_train,x_test,y_train,y_test)
     # test_MultinomialNB(x_train, x_test, y_train, y_test)
-    test_BernoulliNB(x_train, x_test, y_train, y_test)
+    # test_BernoulliNB(x_train, x_test, y_train, y_test)
